@@ -5,17 +5,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
-import com.katana.lowbatterywarning.activities.MainActivity;
 import com.katana.lowbatterywarning.services.PowerDetectionForegroundService;
 
-public class BootEventReceiver extends BroadcastReceiver {
+public class AppUpdateReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
         try {
 
-            if (intent.getAction() != null && intent.getAction().equalsIgnoreCase(Intent.ACTION_BOOT_COMPLETED)) {
+            if (intent.getAction() != null && intent.getAction().equalsIgnoreCase(Intent.ACTION_MY_PACKAGE_REPLACED)) {
 
                 Intent startIntent = new Intent(context, PowerDetectionForegroundService.class);
 
@@ -25,7 +24,7 @@ public class BootEventReceiver extends BroadcastReceiver {
 
         } catch (Exception e) {
 
-            Toast.makeText(context,"Error starting the service after boot",Toast.LENGTH_LONG).show();
+            Toast.makeText(context,"Error starting the service after app update",Toast.LENGTH_LONG).show();
 
         }
 

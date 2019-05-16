@@ -1,9 +1,12 @@
 package com.katana.lowbatterywarning.receivers;
 
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
+
+import com.katana.lowbatterywarning.utils.Const;
 
 public class PowerConnectionReceiver extends BroadcastReceiver {
 
@@ -14,13 +17,15 @@ public class PowerConnectionReceiver extends BroadcastReceiver {
 
             if (intent.getAction() != null && intent.getAction().equalsIgnoreCase(Intent.ACTION_POWER_CONNECTED)) {
 
-                //TODO dismiss low battery notification if any
+                NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
+
+                notificationManager.cancel(Const.NOTIFICATION_ID);
 
             }
 
         } catch (Exception e) {
 
-            Toast.makeText(context,"Error starting the service after boot",Toast.LENGTH_LONG).show();
+            Toast.makeText(context,"Exception in Power Connection Receiver",Toast.LENGTH_LONG).show();
 
         }
 
