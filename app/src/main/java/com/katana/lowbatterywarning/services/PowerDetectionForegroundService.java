@@ -27,6 +27,8 @@ public class PowerDetectionForegroundService extends Service {
 
         IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_LOW);
 
+        ifilter.addAction(Intent.ACTION_BATTERY_OKAY);
+
         registerReceiver(lowBatteryReceiver,ifilter);
 
         Intent notificationIntent = new Intent(this, MainActivity.class);

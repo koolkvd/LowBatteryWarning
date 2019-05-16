@@ -41,15 +41,6 @@
             </intent-filter>
         </receiver>
 
-        <receiver
-            android:name=".receivers.PowerConnectionReceiver"
-            android:enabled="true"
-            >
-            <intent-filter>
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
-            </intent-filter>
-        </receiver>
-
         <receiver android:name=".receivers.AppUpdateReceiver"
             android:enabled="true"
             >
