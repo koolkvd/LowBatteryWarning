@@ -72,12 +72,6 @@ public class LowBatteryReceiver extends BroadcastReceiver {
 
                 notificationManager.notify(Const.NOTIFICATION_ID,notification);
 
-            }else if(intent.getAction() != null && intent.getAction().equalsIgnoreCase(Intent.ACTION_BATTERY_OKAY)){
-
-                NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
-
-                notificationManager.cancel(Const.NOTIFICATION_ID);
-
             }
 
         } catch (Exception e) {

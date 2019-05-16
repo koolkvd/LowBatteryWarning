@@ -16,20 +16,31 @@ import android.widget.Toast;
 import com.katana.lowbatterywarning.R;
 import com.katana.lowbatterywarning.activities.MainActivity;
 import com.katana.lowbatterywarning.receivers.LowBatteryReceiver;
+import com.katana.lowbatterywarning.receivers.PowerConnectionReceiver;
 import com.katana.lowbatterywarning.utils.Const;
 
 public class PowerDetectionForegroundService extends Service {
 
+    LowBatteryReceiver lowBatteryReceiver;
+
+    PowerConnectionReceiver powerConnectionReceiver;
+
     @Override
     public void onCreate(){
 
-        LowBatteryReceiver lowBatteryReceiver = new LowBatteryReceiver();
+        lowBatteryReceiver = new LowBatteryReceiver();
 
         IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_LOW);
 
-        ifilter.addAction(Intent.ACTION_BATTERY_OKAY);
-
         registerReceiver(lowBatteryReceiver,ifilter);
+
+
+        powerConnectionReceiver = new PowerConnectionReceiver();
+
+        IntentFilter intentFilter = new IntentFilter(Intent.ACTION_POWER_CONNECTED);
+
+        registerReceiver(powerConnectionReceiver,intentFilter);
+
 
         Intent notificationIntent = new Intent(this, MainActivity.class);
 
@@ -73,6 +84,20 @@ public class PowerDetectionForegroundService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+
+        if(lowBatteryReceiver!=null){
+            unregisterReceiver(lowBatteryReceiver);
+        }
+
+        if(powerConnectionReceiver!=null){
+            unregisterReceiver(powerConnectionReceiver);
+        }
+
     }
 
 }
