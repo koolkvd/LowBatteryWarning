@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        releaseconfig {
+            storeFile file('C:\\Users\\kusha\\lowbatterywarning.jks')
+            storePassword 'Vertigohellblazer123!'
+            keyAlias = 'lowbatterywarning'
+            keyPassword 'Vertigohellblazer123!'
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.katana.lowbatterywarning"
@@ -14,6 +22,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.releaseconfig
         }
     }
 }
